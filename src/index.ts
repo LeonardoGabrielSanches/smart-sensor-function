@@ -1,0 +1,11 @@
+import firebase from "firebase/compat/app";
+import 'firebase/compat/firestore';
+import dotenv from 'dotenv';
+dotenv.config();
+
+import { firebaseConfig } from "./config/firebaseConfig";
+import { watchHistory } from "./listeners/firebase/equipmentsListener";
+
+export const firebaseApp = firebase.initializeApp(firebaseConfig);
+
+watchHistory();
