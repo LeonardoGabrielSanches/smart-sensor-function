@@ -11,7 +11,7 @@ export async function watchHistory() {
                 isFirstSnapshot = false;
                 return;
             }
-
+            console.log("Novo registro");
             snapshot.docChanges().map(x => {
                 if (x.doc.data().value > equipment.data().maxValue)
                     console.log('enviar notificação');
