@@ -8,4 +8,6 @@ import { watchHistory } from "./listeners/firebase/equipmentsListener";
 
 export const firebaseApp = firebase.initializeApp(firebaseConfig);
 
+console.log(`Projeto foi inicializado ${JSON.stringify(process.env.NODE_ENV)}`);
+
 watchHistory();

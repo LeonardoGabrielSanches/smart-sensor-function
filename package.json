@@ -1,10 +1,11 @@
 {
   "name": "smart-sensor-function",
   "version": "1.0.0",
-  "main": "src/index.ts",
+  "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node ./src/index.ts"
+    "dev": "ts-node ./src/index.ts",
+    "start": "export NODE_ENV=production && node ./dist/index.js"
   },
   "devDependencies": {
     "typescript": "^4.6.3"

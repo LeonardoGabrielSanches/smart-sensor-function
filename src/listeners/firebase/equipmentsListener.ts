@@ -7,6 +7,7 @@ export async function watchHistory() {
         let isFirstSnapshot = true;
 
         firebaseApp.firestore().collection(`equipments/${equipment.id}/history`).onSnapshot((snapshot) => {
+            console.log('Realizou inserção em histórico');
             if (isFirstSnapshot) {
                 isFirstSnapshot = false;
                 return;
