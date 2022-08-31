@@ -5,7 +5,6 @@ dotenv.config();
 
 import { firebaseConfig } from "./config/firebaseConfig";
 import { watchHistory } from "./listeners/firebase/equipmentsListener";
-import { sendNotification } from "./expo";
 
 export const firebaseApp = firebase.initializeApp(firebaseConfig);
 
