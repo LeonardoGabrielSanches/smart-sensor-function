@@ -1,4 +1,4 @@
-import { Expo, ExpoPushMessage } from 'expo-server-sdk'
+import { Expo } from 'expo-server-sdk'
 
 export const expo = new Expo()
 

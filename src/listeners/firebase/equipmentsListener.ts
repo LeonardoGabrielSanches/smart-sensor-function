@@ -1,4 +1,11 @@
 import { firebaseApp } from "../..";
+import { TEMPERATURE_LIMIT, VIBRATION_LIMIT } from "../../constants/limits";
+import { sendNotification } from "../../expo";
+
+type DocType = {
+    voltageTemperature: number;
+    vibration:number;
+}
 
 export async function watchHistory() {
     const equipments = await firebaseApp.firestore().collection('equipments').get();
@@ -7,15 +14,25 @@ export async function watchHistory() {
         let isFirstSnapshot = true;
 
         firebaseApp.firestore().collection(`equipments/${equipment.id}/history`).onSnapshot((snapshot) => {
-            console.log('Realizou inserção em histórico');
             if (isFirstSnapshot) {
                 isFirstSnapshot = false;
                 return;
             }
-            console.log("Novo registro");
-            snapshot.docChanges().map(x => {
-                if (x.doc.data().value > equipment.data().maxValue)
-                    console.log('enviar notificação');
+            
+
+            snapshot.docChanges().map(async x => {
+                const data = x.doc.data() as DocType
+
+                if (data.vibration > VIBRATION_LIMIT){
+                    await sendNotification('Motor com vibração elevada')
+                    return
+                }
+
+                if (data.voltageTemperature > TEMPERATURE_LIMIT){
+                    await sendNotification('Motor com temperatura elevada')
+                    return
+                }
+                
             });
         });
     });
