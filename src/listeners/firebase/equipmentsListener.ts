@@ -25,11 +25,17 @@ export async function watchHistory() {
 
                 if (data.vibration > VIBRATION_LIMIT){
                     await sendNotification('Motor com vibração elevada')
+                    await firebaseApp.firestore().collection('notifications').add({
+                        message: 'Motor com vibração elevada.'
+                    })
                     return
                 }
 
                 if (data.voltageTemperature > TEMPERATURE_LIMIT){
                     await sendNotification('Motor com temperatura elevada')
+                    await firebaseApp.firestore().collection('notifications').add({
+                        message: 'Motor com temperatura elevada.'
+                    })
                     return
                 }
                 
