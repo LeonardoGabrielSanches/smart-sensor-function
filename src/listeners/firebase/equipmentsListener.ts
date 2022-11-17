@@ -31,7 +31,7 @@ export async function watchHistory() {
                     return
                 }
 
-                if (data.voltageTemperature > TEMPERATURE_LIMIT){
+                if (data.voltageTemperature * 26 > TEMPERATURE_LIMIT){
                     await sendNotification('Motor com temperatura elevada')
                     await firebaseApp.firestore().collection('notifications').add({
                         message: 'Motor com temperatura elevada.'
