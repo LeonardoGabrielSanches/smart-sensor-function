@@ -5,6 +5,7 @@ import { sendNotification } from "../../expo";
 type DocType = {
     voltageTemperature: number;
     vibration:number;
+    room_temperature:number;
 }
 
 export async function watchHistory() {
@@ -23,7 +24,7 @@ export async function watchHistory() {
             snapshot.docChanges().map(async x => {
                 const data = x.doc.data() as DocType
 
-                if (data.vibration > VIBRATION_LIMIT){
+                if (data.vibration  > VIBRATION_LIMIT){
                     await sendNotification('Motor com vibração elevada')
                     await firebaseApp.firestore().collection('notifications').add({
                         message: 'Motor com vibração elevada.'
@@ -31,7 +32,7 @@ export async function watchHistory() {
                     return
                 }
 
-                if (data.voltageTemperature * 26 > TEMPERATURE_LIMIT){
+                if ((data.voltageTemperature * 26) - data.room_temperature > TEMPERATURE_LIMIT){
                     await sendNotification('Motor com temperatura elevada')
                     await firebaseApp.firestore().collection('notifications').add({
                         message: 'Motor com temperatura elevada.'
